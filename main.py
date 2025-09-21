@@ -33,6 +33,7 @@ def requestData():
                 print("These are the brands that our company is connected to : ")
                 print(car_brand)
                 user_brand = str(input(("Please type a selected car brand within our database : "))).lower()
+                # loops through the car brand list to see if the selected brand is valid.
                 for x in car_brand:
                     if user_brand in car_brand:
                         print("Car brand is valid")
@@ -54,21 +55,24 @@ def requestData():
         error()
         start()
 
+# function to start the user input programme
 def start():
     user_data = requestData()
     print(user_data)
 
+#adds a QoL transition to improve customer experience
 def transition():
     os.system('cls')
     print("----------------")
     time.sleep(0.1)
 
+#specific transition for errors so the customer has time to see what the customer did wrong. 
 def error():
     time.sleep(3)
     transition()
 
-# making the arrays for all the information
- 
+
+# making the arrays for all the information 
 car_budget      = ["181000","",]
 car_range       = ["629","",]
 car_condition   = ["New","",]
