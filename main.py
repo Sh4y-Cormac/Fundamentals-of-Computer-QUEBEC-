@@ -76,16 +76,21 @@ def error():
 
 
 # making the arrays for all the information 
-car_budget      = ["181000","207000",]
-car_range       = ["629","384",]
-car_condition   = ["Old","New",]
-car_brand       = ["tesla", "hyundai", "byd", "proton", "bmw"]
-car_description = ["Model 3", "Ioniq 5 Lite"]
+car_brand = ["tesla", "hyundai", "byd", "proton", "bmw"]
 
 
-#Cars List
+#Cars List Dictionary 
 CARS = [
-    "brand"
+    {"brand": "tesla", "model": "Model 3", "price": 181000, "range": 629, "condition": "new" },
+    {"brand": "tesla", "model": "Model 3", "price": 140000, "range": 580, "condition": "used" },
+    {"brand": "hyundai", "model": "IONIQ 5", "price": 199888, "range": 504, "condition": "new" },
+    {"brand": "hyundai", "model": "IONIQ 5", "price": 143888, "range": 300, "condition": "used" },
+    {"brand": "byd", "model": "Seal", "price": 171800, "range": 650, "condition": "new" },
+    {"brand": "byd", "model": "Seal", "price": 120000, "range": 570, "condition": "used" },
+    {"brand": "proton", "model": "e.Mas7", "price": 109800, "range": 345, "condition": "new" },
+    {"brand": "proton", "model": "e.Mas7", "price": 105800, "range": 345, "condition": "used" },    
+    {"brand": "bmw", "model": "i4", "price": 294800, "range": 500, "condition": "new" },
+    {"brand": "bmw", "model": "i4", "price": 198000, "range": 483, "condition": "used" },
 ]
 
 # ----------------- Utility -----------------
