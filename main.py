@@ -100,7 +100,7 @@ CARS = [
     {"brand": "bmw", "model": "i4", "price": 198000, "range": 483, "condition": "used" },
 ]
 
-#assigning numbers to bounds
+#assigning output requirement numbers with their respective bounds
 def budget_ranges(option: int):
     if option == 1: return (50000, 100000)
     if option == 2: return (100000, 150000)
@@ -116,9 +116,9 @@ def travel_ranges(option: int):
     return 0
 
 def condition_of_car(option: int):
-    return "New" if option == 1 else "Old"
+    return "New" if option == 1 else "Used"
 
-#finding the suitable
+#go through the car dictionary and find a car based on the requirement
 def find_matching_cars(user_budget, user_range, user_condition, user_brand):
     low, high = budget_ranges(user_budget)
     rmin = travel_ranges(user_range)
@@ -138,9 +138,9 @@ def print_matches(matches):
     if not matches:
         transition()
         print("\nSorry, no cars match your requirements.\n")
-        input("Would you like to see our recommendation closest to your requirements? (Yes/No)").lower()
+        input("Would you like to see our recommendation closest to your requirements? (Yes/No)\n").lower() #Kar fung continue here 
         return
-    print("\n 1Cars matching your requirements:\n")
+    print("\nWe found a match based on your requirement!:\n")
     for car in matches:
         transition()
         print(f"- {car['brand'].title()} {car['model']} | RM{car['price']:,} | {car['range']} km | {car['condition']}")
@@ -158,7 +158,7 @@ def ensure_db():
 
 def load_users():
     users = {}
-    with open(DB_FILE, "r", encoding="utf-8") as f:1
+    with open(DB_FILE, "r", encoding="utf-8") as f:
         for line in f:
             line = line.strip()
             if ":" in line:
@@ -197,6 +197,8 @@ def log_in():
     if users[u] == p:
         print(f"Login Succeed! Welcome, {u}.")
         # TERUS MASUK CODE UMAR
+        print("\n")
+        print("----------------")
         start()            # <--- panggil function umar 
         return
     else:
