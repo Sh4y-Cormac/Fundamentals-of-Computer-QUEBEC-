@@ -79,9 +79,14 @@ def error():
 car_budget      = ["181000","207000",]
 car_range       = ["629","384",]
 car_condition   = ["Old","New",]
-car_brand       = ["Tesla", "Hyundai", "BYD", "Proton", "BMW"]
+car_brand       = ["tesla", "hyundai", "byd", "proton", "bmw"]
 car_description = ["Model 3", "Ioniq 5 Lite"]
 
+
+#Cars List
+CARS = [
+    "brand"
+]
 
 # ----------------- Utility -----------------
 def clear_screen():
