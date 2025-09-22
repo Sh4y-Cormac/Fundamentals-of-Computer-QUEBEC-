@@ -7,7 +7,14 @@ DB_FILE = "users.txt"
 # function to start the user input programme
 def start():
     user_data = requestData()
-    print(user_data)
+
+    #tuple unpacking
+    user_budget, user_range, user_condition, user_brand = user_data
+
+    matches = find_matching_cars(user_budget, user_range, user_condition, user_brand)
+    print_matches(matches)
+
+
 
 # making a function to handle user input data
 def requestData():
@@ -93,6 +100,52 @@ CARS = [
     {"brand": "bmw", "model": "i4", "price": 198000, "range": 483, "condition": "used" },
 ]
 
+#assigning numbers to bounds
+def budget_ranges(option: int):
+    if option == 1: return (50000, 100000)
+    if option == 2: return (100000, 150000)
+    if option == 3: return (150000, 200000)
+    if option == 4: return (200000, float("inf"))
+    return (0, float("inf"))
+
+def travel_ranges(option: int):
+    if option == 1: return 200
+    if option == 2: return 300
+    if option == 3: return 400
+    if option == 4: return 500
+    return 0
+
+def condition_of_car(option: int):
+    return "New" if option == 1 else "Old"
+
+#finding the suitable
+def find_matching_cars(user_budget, user_range, user_condition, user_brand):
+    low, high = budget_ranges(user_budget)
+    rmin = travel_ranges(user_range)
+    cond = condition_of_car(user_condition)
+
+    matches = []
+    for car in CARS:
+        if (car["brand"].lower() == user_brand.lower()
+            and car["condition"].lower() == cond.lower()
+            and low <= car["price"] <= high
+            and car["range"] >= rmin):
+            matches.append(car)
+    return matches
+
+#car found yes or no
+def print_matches(matches):
+    if not matches:
+        transition()
+        print("\nSorry, no cars match your requirements.\n")
+        input("Would you like to see our recommendation closest to your requirements? (Yes/No)").lower()
+        return
+    print("\n 1Cars matching your requirements:\n")
+    for car in matches:
+        transition()
+        print(f"- {car['brand'].title()} {car['model']} | RM{car['price']:,} | {car['range']} km | {car['condition']}")
+    print()
+
 # ----------------- Utility -----------------
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -105,7 +158,7 @@ def ensure_db():
 
 def load_users():
     users = {}
-    with open(DB_FILE, "r", encoding="utf-8") as f:
+    with open(DB_FILE, "r", encoding="utf-8") as f:1
         for line in f:
             line = line.strip()
             if ":" in line:
