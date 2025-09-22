@@ -4,107 +4,10 @@ import time
 
 DB_FILE = "users.txt"
 
-# ----------------- Utility -----------------
-def clear_screen():
-    os.system('cls' if os.name == 'nt' else 'clear')
-
-def ensure_db():
-    try:
-        open(DB_FILE, "x").close()  # create file kalau tak ada
-    except FileExistsError:
-        pass
-
-def load_users():
-    users = {}
-    with open(DB_FILE, "r", encoding="utf-8") as f:
-        for line in f:
-            line = line.strip()
-            if ":" in line:
-                u, p = line.split(":", 1)
-                users[u] = p
-    return users
-
-def save_user(username, password):
-    with open(DB_FILE, "a", encoding="utf-8") as f:
-        f.write(f"{username}:{password}\n")
-
-# ----------------- Features -----------------
-def sign_up():
-    print("[ SIGN UP ]")
-    u = input("Enter username: ").strip()
-    p = input("Enter password: ").strip()
-
-    users = load_users()
-    if u in users:
-        print("Username already exists. Please try again.")
-    else:
-        save_user(u, p)
-        print("Registration successful! Please login with your new account.")
-
-def log_in():
-    print("[ LOGIN ]")
-    u = input("Enter username: ").strip()
-    p = input("Enter password: ").strip()
-
-    users = load_users()
-2
-    if u not in users:
-        print("Invalid account. Please sign up first.")
-        return
-
-    if users[u] == p:
-        print(f"Login Succeed! Welcome, {u}.")
-        # TERUS MASUK CODE UMAR
-        start()            # <--- panggil function umar
-        return
-    else:
-        print("Password is incorrect.")
-
-
-# ----------------- Banner -----------------
-def print_banner():
-    print(r"""
- __        __   _                            _         
- \ \      / /__| | ___ ___  _ __ ___   ___  | |_ ___   
-  \ \ /\ / / _ \ |/ __/ _ \| '_ ` _ \ / _ \ | __/ _ \  
-   \ V  V /  __/ | (_| (_) | | | | | |  __/ | || (_) | 
-    \_/\_/ \___|_|\___\___/|_| |_| |_|\___|  \__\___/  
-    """)
-    print("        Welcome to EV Dealership\n")
-
-# ----------------- Main Loop -----------------
-def main():
-    ensure_db()
-    while True:
-        clear_screen()
-        print_banner()
-        print("Do you want to log in or sign up?")
-        print("1) log in")
-        print("2) sign up")
-        print("3) exit")
-        choice = input("Choose (1/2/3): ").strip()
-
-        clear_screen()
-
-        if choice == "1":
-            log_in()
-            input("\nPress Enter to return to main menu...")
-        elif choice == "2":
-            sign_up()
-            input("\nPress Enter to return to main menu...")
-        elif choice == "3":
-            print("Bye!")
-            break
-        else:
-            print("Invalid choice.")
-            input("\nPress Enter to return to main menu...")
-
-if __name__ == "__main__":
-    main()
-
-
-
-
+# function to start the user input programme
+def start():
+    user_data = requestData()
+    print(user_data)
 
 # making a function to handle user input data
 def requestData():
@@ -158,10 +61,7 @@ def requestData():
         error()
         start()
 
-# function to start the user input programme
-def start():
-    user_data = requestData()
-    print(user_data)
+
 
 #adds a QoL transition to improve customer experience
 def transition():
@@ -176,10 +76,112 @@ def error():
 
 
 # making the arrays for all the information 
-car_budget      = ["181000","",]
-car_range       = ["629","",]
-car_condition   = ["New","",]
+car_budget      = ["181000","207000",]
+car_range       = ["629","384",]
+car_condition   = ["Old","New",]
 car_brand       = ["tesla", "hyundai"]
-car_description = ["Model 3", "Ioniq 5"]
+car_description = ["Model 3", "Ioniq 5 Lite"]
 
-start()
+
+# ----------------- Utility -----------------
+def clear_screen():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+def ensure_db():
+    try:
+        open(DB_FILE, "x").close()  # create file kalau tak ada
+    except FileExistsError:
+        pass
+
+def load_users():
+    users = {}
+    with open(DB_FILE, "r", encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if ":" in line:
+                u, p = line.split(":", 1)
+                users[u] = p
+    return users
+
+def save_user(username, password):
+    with open(DB_FILE, "a", encoding="utf-8") as f:
+        f.write(f"{username}:{password}\n")
+
+# ----------------- Features -----------------
+def sign_up():
+    print("[ SIGN UP ]")
+    u = input("Enter username: ").strip()
+    p = input("Enter password: ").strip()
+
+    users = load_users()
+    if u in users:
+        print("Username already exists. Please try again.")
+    else:
+        save_user(u, p)
+        print("Registration successful! Please login with your new account.")
+
+def log_in():
+    print("[ LOGIN ]")
+    u = input("Enter username: ").strip()
+    p = input("Enter password: ").strip()
+
+    users = load_users()
+
+    if u not in users:
+        print("Invalid account. Please sign up first.")
+        return
+
+    if users[u] == p:
+        print(f"Login Succeed! Welcome, {u}.")
+        # TERUS MASUK CODE UMAR
+        start()            # <--- panggil function umar 
+        return
+    else:
+        print("Password is incorrect.")
+
+
+# ----------------- Banner -----------------
+def print_banner():
+    print(r"""
+    __        __   _                            _         
+    \ \      / /__| | ___ ___  _ __ ___   ___  | |_ ___   
+    \ \ /\ / / _ \ |/ __/ _ \| '_ ` _ \ / _ \ | __/ _ \  
+    \ V  V /  __/ | (_| (_) | | | | | |  __/ | || (_) | 
+     \_/\_/ \___|_|\___\___/|_| |_| |_|\___|  \__\___/  
+    """)
+    print("        Welcome to EV Dealership\n")
+
+# ----------------- Main Loop -----------------
+def main():
+    ensure_db()
+    while True:
+        clear_screen()
+        print_banner()
+        print("Do you want to log in or sign up?")
+        print("1) log in")
+        print("2) sign up")
+        print("3) exit")
+        choice = input("Choose (1/2/3): ").strip()
+
+        clear_screen()
+
+        if choice == "1":
+            log_in()
+            input("\nPress Enter to return to main menu...")
+        elif choice == "2":
+            sign_up()
+            input("\nPress Enter to return to main menu...")
+        elif choice == "3":
+            print("Bye!")
+            break
+        else:
+            print("Invalid choice.")
+            input("\nPress Enter to return to main menu...")
+
+if __name__ == "__main__":
+    main()
+
+
+
+
+
