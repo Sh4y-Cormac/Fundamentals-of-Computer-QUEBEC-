@@ -6,6 +6,8 @@ DB_FILE = "users.txt"
 
 # function to start the user input programme
 def start():
+    global user_brand, user_budget, user_condition, user_range
+
     user_data = requestData()
 
     #tuple unpacking
@@ -138,13 +140,53 @@ def print_matches(matches):
     if not matches:
         transition()
         print("\nSorry, no cars match your requirements.\n")
-        input("Would you like to see our recommendation closest to your requirements? (Yes/No)\n").lower() #Kar fung continue here 
-        return
-    print("\nWe found a match based on your requirement!:\n")
+        choice = input("Would you like to see our recommendation closest to your requirements? (Yes/No)\n").lower()
+        clear_screen()
+
+        if choice == "no":
+            new_budget, new_range, new_condition, new_brand = requestData()
+            new_matches = find_matching_cars(new_budget, new_range, new_condition, new_brand)
+            print_matches(new_matches)
+            return
+        elif choice == "yes":  
+            clear_screen()
+            print("\nThese are our recommended choices!\n")
+            for car in CARS:
+                if ( car['brand'] == user_brand
+                    or  car['condition'] == condition_of_car(user_condition)
+                    or car['range'] >= travel_ranges(user_range)
+                    or (budget_ranges(user_budget)[0] <= car['price'] <= budget_ranges(user_budget)[1])
+                ):
+                    print(f"- {car['brand'].title()} {car['model']} | RM{car['price']:,} | {car['range']} km | {car['condition']}")
+    else:
+        clear_screen()
+        print("\nWe found a match based on your requirement!:\n")
     for car in matches:
         transition()
         print(f"- {car['brand'].title()} {car['model']} | RM{car['price']:,} | {car['range']} km | {car['condition']}")
     print()
+
+    print("\nDo you want to choose another option?(yes/no)\n")
+    loop = input().lower()
+    clear_screen()
+    
+    if loop == "yes":
+        new_budget, new_range, new_condition, new_brand = requestData()
+        new_matches = find_matching_cars(new_budget, new_range, new_condition, new_brand)
+        print_matches(new_matches)
+        return
+    
+    elif loop == "no":
+        main()
+        clear_screen()
+        return
+    
+    else: print("Invalid input")
+    time.sleep(2)
+    clear_screen()
+    start()
+    return
+
 
 # ----------------- Utility -----------------
 def clear_screen():
@@ -245,8 +287,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
-
-
