@@ -143,12 +143,12 @@ def print_matches(matches):
         choice = input("Would you like to see our recommendation closest to your requirements? (Yes/No)\n").lower()
         clear_screen()
 
-        if choice == "no":
+        if choice == "no": #ask for new user input
             new_budget, new_range, new_condition, new_brand = requestData()
             new_matches = find_matching_cars(new_budget, new_range, new_condition, new_brand)
             print_matches(new_matches)
             return
-        elif choice == "yes":  
+        elif choice == "yes": #this will display one or more match input from the user as recommended car
             clear_screen()
             print("\nThese are our recommended choices!\n")
             for car in CARS:
@@ -170,13 +170,13 @@ def print_matches(matches):
     loop = input().lower()
     clear_screen()
     
-    if loop == "yes":
+    if loop == "yes": #ask the user for new input
         new_budget, new_range, new_condition, new_brand = requestData()
         new_matches = find_matching_cars(new_budget, new_range, new_condition, new_brand)
         print_matches(new_matches)
         return
     
-    elif loop == "no":
+    elif loop == "no": #go back to the main screen
         main()
         clear_screen()
         return
