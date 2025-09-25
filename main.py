@@ -167,7 +167,7 @@ def print_matches(matches):
     print()
 
     print("\nDo you want to choose another option?(yes/no)\n")
-    loop = input().lower()
+    loop = str(input().lower())
     clear_screen()
     
     if loop == "yes": #ask the user for new input
