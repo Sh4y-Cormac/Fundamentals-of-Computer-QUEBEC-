@@ -2,6 +2,7 @@
 import os
 import time
 
+# Nama file untuk simpan username & password
 DB_FILE = "users.txt"
 
 # function to start the user input programme
@@ -189,27 +190,27 @@ def print_matches(matches):
 
 
 # ----------------- Utility -----------------
-def clear_screen():
+def clear_screen(): # Clear terminal ikut OS (Windows = 'cls', Linux/Mac = 'clear')
     os.system('cls' if os.name == 'nt' else 'clear')
 
-def ensure_db():
+def ensure_db(): # Pastikan file database wujud, kalau tak ada dia akan create
     try:
-        open(DB_FILE, "x").close()  # create file kalau tak ada
+        open(DB_FILE, "x").close() # "x" = create file baru, error kalau dah ada
     except FileExistsError:
         pass
 
-def load_users():
+def load_users(): # Baca semua user dari file dan simpan dalam dictionary {username: password}
     users = {}
     with open(DB_FILE, "r", encoding="utf-8") as f:
         for line in f:
-            line = line.strip()
-            if ":" in line:
-                u, p = line.split(":", 1)
+            line = line.strip() # buang newline \n
+            if ":" in line: # pastikan format betul (username:password)
+                u, p = line.split(":", 1) # split hanya sekali
                 users[u] = p
     return users
 
-def save_user(username, password):
-    with open(DB_FILE, "a", encoding="utf-8") as f:
+def save_user(username, password):  # Simpan username & password baru ke dalam file
+    with open(DB_FILE, "a", encoding="utf-8") as f: # "a" = append
         f.write(f"{username}:{password}\n")
 
 # ----------------- Features -----------------
@@ -218,11 +219,11 @@ def sign_up():
     u = input("Enter username: ").strip()
     p = input("Enter password: ").strip()
 
-    users = load_users()
-    if u in users:
+    users = load_users() # Baca semua user sedia ada
+    if u in users:  # Kalau username dah ada
         print("Username already exists. Please try again.")
     else:
-        save_user(u, p)
+        save_user(u, p) # Simpan user baru
         print("Registration successful! Please login with your new account.")
 
 def log_in():
@@ -230,13 +231,13 @@ def log_in():
     u = input("Enter username: ").strip()
     p = input("Enter password: ").strip()
 
-    users = load_users()
+    users = load_users() # Baca semua user
 
-    if u not in users:
+    if u not in users: # Kalau username tak wujud
         print("Invalid account. Please sign up first.")
         return
 
-    if users[u] == p:
+    if users[u] == p: # Password betul
         print(f"Login Succeed! Welcome, {u}.")
         # TERUS MASUK CODE UMAR
         print("\n")
@@ -248,7 +249,7 @@ def log_in():
 
 
 # ----------------- Banner -----------------
-def print_banner():
+def print_banner(): #banner welcome ASCII art
     print(r"""
     __        __   _                            _         
     \ \      / /__| | ___ ___  _ __ ___   ___  | |_ ___   
@@ -259,9 +260,9 @@ def print_banner():
     print("        Welcome to EV Dealership\n")
 
 # ----------------- Main Loop -----------------
-def main():
-    ensure_db()
-    while True:
+def main(): #main menu the login menu will ask user log in or sign up
+    ensure_db()  # Pastikan file DB ada
+    while True: # main loop
         clear_screen()
         print_banner()
         print("Do you want to log in or sign up?")
@@ -282,7 +283,7 @@ def main():
             print("Bye!")
             break
         else:
-            print("Invalid choice.")
+            print("Invalid choice.") #if user enter an input that is invalid it will return to menu
             input("\nPress Enter to return to main menu...")
 
 if __name__ == "__main__":
